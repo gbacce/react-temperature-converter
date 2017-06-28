@@ -76,9 +76,27 @@ class Calculator extends Component {
 	render() {
 		const scale = this.state.scale;
 		const temperature = this.state.temperature;
-		const celsius = scale === "f" ? scale === "k" ? tryConvert(temperature, toCelsiusFromF) : tryConvert(temperature, toCelsiusFromK): temperature;
-		const fahrenheit = scale === "c" ? scale === "k" ? tryConvert(temperature, toFahrenheitFromC) : tryConvert(temperature, toFahrenheitFromK): temperature;
-		const kelvin = scale === "c" ? scale === "f" ? tryConvert(temperature, toKelvinFromC) : tryConvert(temperature, toKelvinFromF): temperature;
+		var celsius = ""
+		var fahrenheit = ""
+		var kelvin = ""
+		if (scale === "f") {
+			celsius = tryConvert(temperature, toCelsiusFromF)
+			kelvin = tryConvert(temperature, toKelvinFromF)
+			fahrenheit = temperature
+		} else if (scale === "c"){
+			fahrenheit = tryConvert(temperature, toFahrenheitFromC)
+			kelvin = tryConvert(temperature, toKelvinFromC)
+			celsius = temperature
+		} else if (scale === "k"){
+			celsius = tryConvert(temperature, toCelsiusFromK)
+			fahrenheit = tryConvert(temperature, toFahrenheitFromK)
+			kelvin = temperature
+		}
+
+
+		// const celsius = scale === "f" ? scale === "k" ? tryConvert(temperature, toCelsiusFromF) : tryConvert(temperature, toCelsiusFromK): temperature;
+		// const fahrenheit = scale === "c" ? scale === "k" ? tryConvert(temperature, toFahrenheitFromC) : tryConvert(temperature, toFahrenheitFromK): temperature;
+		// const kelvin = scale === "c" ? scale === "f" ? tryConvert(temperature, toKelvinFromC) : tryConvert(temperature, toKelvinFromF): temperature;
 		return(
 			<div className = "container">
 				<TemperatureInput scale="c" temperature={celsius} onTemperatureChange={this.handleCelsiusChange} />
